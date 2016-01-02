@@ -3,9 +3,11 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth;
+use Log;
 
-class User extends Authenticatable
-{
+class User extends Authenticatable {
+
     /**
      * The attributes that are mass assignable.
      *
@@ -23,9 +25,27 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-    
-    public function isAdmin() {
-        
+
+    public function isAdmin()
+        {
+
         return true;
-    }
+        }
+
+    public function haveAccess()
+        {
+        $access = false;
+        $user = json_decode(Auth::user()->roles->access);
+
+
+//        Log::debug($user);
+
+        return true;
+        }
+
+    public function roles()
+        {
+        return $this->belongsTo('App\Roles');
+        }
+
 }

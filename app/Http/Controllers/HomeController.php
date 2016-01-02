@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use Log;
 
 class HomeController extends Controller
 {
@@ -24,6 +25,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $roles = \App\Roles::all();
+        $user = \App\User::all();
+        return view('home')
+        ->with([
+            'roles' => $roles,
+            'user' => $user
+        ]);
     }
 }

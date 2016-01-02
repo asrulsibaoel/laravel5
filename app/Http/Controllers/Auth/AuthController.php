@@ -47,16 +47,6 @@ class AuthController extends Controller
      * @return \Illuminate\Contracts\Validation\Validator
      */
     
-    public function login()
-    {
-        return view('auth.login');
-    }
-    
-    public function authenticate()
-    {
-        return view('auth.login');
-    }
-    
     protected function validator(array $data)
     {
         return Validator::make($data, [

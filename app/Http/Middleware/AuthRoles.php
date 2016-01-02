@@ -3,9 +3,9 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Log;
-use App\User;
 use Illuminate\Support\Facades\Auth;
+use Log;
+use Session;
 
 class AuthRoles
 {
@@ -18,15 +18,15 @@ class AuthRoles
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        Log::debug(Auth::user());
+//        Log::debug(Auth::user());
         
-//        if (Auth::guard($guard)->guest()) {
-//            if ($request->ajax()) {
-//                return response('Unauthorized.', 401);
-//            } else {
-//                return redirect()->guest('login');
-//            }
-//        }
+        if (Auth::guard($guard)->guest()) {
+            if ($request->ajax()) {
+                return response('Unauthorized.', 401);
+            } else {
+                return redirect()->guest('login');
+            }
+        }
         return $next($request);
     }
 }
